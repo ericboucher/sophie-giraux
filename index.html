@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sophie Giraux</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#FAF9F5; --plate:#EFEDE7; --grey:#8A877F; --ink:#16150F;
+    --line:rgba(22,21,15,.12); --hair:rgba(22,21,15,.24);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;
+    font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--ink);color:var(--paper)}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+  @media(max-width:600px){.wrap{padding:0 18px}}
+  .mono{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+
+  /* header */
+  header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 90%,transparent);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .name{font-weight:600;font-size:15px;letter-spacing:.01em}
+  nav{display:flex;gap:28px}
+  nav a{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);transition:color .2s}
+  nav a:hover{color:var(--ink)}
+  @media(max-width:600px){nav{gap:16px} nav a{font-size:10px;letter-spacing:.08em}}
+
+  /* hero: one exhibition view, nothing else */
+  .hero{padding:48px 0 0}
+  .hero figure{margin:0}
+  .hero .img{background:var(--plate);aspect-ratio:3/2;overflow:hidden}
+  .hero img{width:100%;height:100%;object-fit:cover}
+  .hero figcaption{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:14px 0 0}
+  .hero figcaption .t{font-family:"Newsreader",Georgia,serif;font-size:16px}
+  .hero figcaption .t i{font-style:italic}
+
+  section{padding:96px 0 0}
+  .sh{display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+    border-bottom:1px solid var(--hair);padding-bottom:12px;margin-bottom:40px}
+  .sh h2{font-weight:500;font-size:20px;letter-spacing:-.01em}
+
+  /* works */
+  .works{display:grid;grid-template-columns:repeat(2,1fr);gap:72px 48px}
+  @media(max-width:760px){.works{grid-template-columns:1fr;gap:56px}}
+  .work{margin:0;cursor:zoom-in}
+  .work .img{background:var(--plate);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+    padding:28px;overflow:hidden}
+  .work img{max-height:100%;width:auto;object-fit:contain;
+    box-shadow:0 14px 28px -20px rgba(22,21,15,.45);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  .work:hover img{transform:scale(1.015)}
+  .work:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+  .cap{padding-top:14px;font-size:13.5px;line-height:1.55;color:var(--grey)}
+  .cap .t{display:block;font-family:"Newsreader",Georgia,serif;font-style:italic;font-size:17px;color:var(--ink)}
+  .cap .cr{display:block;margin-top:4px;font-size:12px;opacity:.8}
+
+  /* broken image fallback */
+  .img.missing{position:relative}
+  .img.missing img{display:none}
+  .img.missing::after{content:"Image indisponible";font-family:"IBM Plex Mono",monospace;font-size:11px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+
+  /* exhibition views strip */
+  .views{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:64px}
+  @media(max-width:760px){.views{grid-template-columns:1fr 1fr;gap:18px}}
+  .view{margin:0;cursor:zoom-in}
+  .view .img{background:var(--plate);aspect-ratio:3/2;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .view img{width:100%;height:100%;object-fit:cover}
+  .view figcaption{padding-top:10px;font-size:12.5px;color:var(--grey);line-height:1.5}
+  .view figcaption i{font-family:"Newsreader",Georgia,serif;font-size:14.5px;color:var(--ink)}
+
+  /* lists */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+  @media(max-width:760px){.cols{grid-template-columns:1fr;gap:40px}}
+  .cols h3{margin-bottom:10px}
+  .row{display:grid;grid-template-columns:52px 1fr;gap:16px;padding:13px 0;border-top:1px solid var(--line)}
+  .row:last-child{border-bottom:1px solid var(--line)}
+  .row .y{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--grey);padding-top:2px}
+  .row .e{font-size:14.5px}
+  .row .e i{font-family:"Newsreader",Georgia,serif;font-size:16.5px}
+  .row .e span{display:block;color:var(--grey);font-size:13px}
+
+  /* text */
+  .text{display:grid;grid-template-columns:1fr 1.25fr;gap:64px;align-items:start}
+  @media(max-width:760px){.text{grid-template-columns:1fr;gap:28px}}
+  .quote{font-family:"Newsreader",Georgia,serif;font-weight:300;font-size:clamp(22px,2.8vw,29px);line-height:1.28}
+  .quote cite{display:block;margin-top:16px;font-family:"IBM Plex Mono",monospace;font-style:normal;font-size:11px;
+    letter-spacing:.06em;color:var(--grey)}
+  .prose p{font-family:"Newsreader",Georgia,serif;font-size:18.5px;line-height:1.55;margin-bottom:16px}
+  .prose p:last-child{margin-bottom:0}
+
+  /* contact */
+  footer{padding:110px 0 56px}
+  .contact{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;
+    border-top:1px solid var(--hair);padding-top:22px}
+  .contact p{font-size:14.5px;line-height:1.9}
+  .contact a{border-bottom:1px solid var(--hair)}
+  .contact a:hover{border-color:var(--ink)}
+  .credits{margin-top:56px;font-size:11.5px;line-height:1.75;color:var(--grey);max-width:80ch}
+
+  /* lightbox */
+  dialog{border:none;padding:0;background:transparent;max-width:94vw;max-height:94vh;margin:auto}
+  dialog::backdrop{background:rgba(250,249,245,.96)}
+  dialog img{max-width:92vw;max-height:84vh;width:auto;height:auto;margin:0 auto}
+  dialog p{text-align:center;padding-top:14px;font-size:13px;color:var(--grey)}
+  dialog p i{font-family:"Newsreader",Georgia,serif;font-size:16px;color:var(--ink)}
+  dialog button{position:fixed;top:18px;right:22px;background:none;border:none;cursor:pointer;
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="#top" class="name">Sophie Giraux</a>
+    <nav>
+      <a href="#oeuvres">Œuvres</a>
+      <a href="#expositions">Expositions</a>
+      <a href="#texte">Texte</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap">
+      <figure class="view" data-full="https://i0.wp.com/jennys.us/wp-content/uploads/2025/07/1.jpg?ssl=1">
+        <div class="img"><img src="https://i0.wp.com/jennys.us/wp-content/uploads/2025/07/1.jpg?ssl=1" alt="Vue de l'exposition C-C-C, Jenny's, New York, 2025" /></div>
+        <figcaption>
+          <span class="t"><i>C-C-C</i>, Jenny's, New York, 2025</span>
+          <span class="mono">Photo Thomas Müller et Jason Loebs</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- WORKS: only pieces with a documented image -->
+  <section id="oeuvres">
+    <div class="wrap">
+      <div class="sh"><h2>Œuvres</h2><span class="mono">Caoutchouc coulé</span></div>
+      <div class="works">
+
+        <figure class="work" tabindex="0">
+          <div class="img"><img loading="lazy" src="https://www.taradowns.com/content/3-exhibitions/85-rare-aesthetics/sophie-135.jpg" alt="All For You (135), 2025" /></div>
+          <figcaption class="cap">
+            <span class="t">All For You (135)</span>
+            2025. Caoutchouc coulé, cadre d'artiste. 43,2 × 48,3 cm
+            <span class="cr">Courtesy Tara Downs, New York</span>
+          </figcaption>
+        </figure>
+
+        <figure class="work" tabindex="0">
+          <div class="img"><img loading="lazy" src="https://www.taradowns.com/content/3-exhibitions/85-rare-aesthetics/sophie-121.jpg" alt="All For You (121), 2025" /></div>
+          <figcaption class="cap">
+            <span class="t">All For You (121)</span>
+            2025. Caoutchouc coulé, cadre d'artiste. 43,2 × 48,3 cm
+            <span class="cr">Courtesy Tara Downs, New York</span>
+          </figcaption>
+        </figure>
+
+        <figure class="work" tabindex="0">
+          <div class="img"><img loading="lazy" src="https://static-assets.artlogic.net/w_1800,h_1320,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/mariabernheim/images/view/c831157b6de47c0afd9d8de81aeb0bbdj/bernheim-sophie-giraux-the-dolly-series-red-23-2023.jpg" alt="The Dolly series (red #23), 2023" /></div>
+          <figcaption class="cap">
+            <span class="t">The Dolly series (red #23)</span>
+            2023. Caoutchouc coulé, cadre aluminium. 77,4 × 109,2 cm
+            <span class="cr">Courtesy Bernheim, Londres</span>
+          </figcaption>
+        </figure>
+
+        <figure class="work" tabindex="0">
+          <div class="img"><img loading="lazy" src="https://static-assets.artlogic.net/w_1800,h_1320,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/mariabernheim/images/view/a9b3ff0503c24a36d2b9a16419ebc889j/bernheim-sophie-giraux-the-dolly-series-silver-21-2023.jpg" alt="The Dolly series (Silver #21), 2023" /></div>
+          <figcaption class="cap">
+            <span class="t">The Dolly series (Silver #21)</span>
+            2023. Caoutchouc coulé, cadre aluminium. 44,45 × 60 cm
+            <span class="cr">Courtesy Bernheim, Londres</span>
+          </figcaption>
+        </figure>
+
+        <figure class="work" tabindex="0">
+          <div class="img"><img loading="lazy" src="https://sothebys-md.brightspotcdn.com/dims4/default/3998418/2147483647/strip/true/crop/4800x3202+0+0/resize/1024x683!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2Fe2%2Fba%2Fc6e553b74bc0bd86f12e321bed8f%2Fn11373-ctkc6-t3-1.jpg" alt="Untitled, 2018" /></div>
+          <figcaption class="cap">
+            <span class="t">Untitled</span>
+            2018. Caoutchouc coulé et fusain sur bois. 45,7 × 62,2 × 15,2 cm
+            <span class="cr">Exposé chez And Now, Dallas, 2019. Courtesy Sotheby's</span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXHIBITIONS: confirmed only -->
+  <section id="expositions">
+    <div class="wrap">
+      <div class="sh"><h2>Expositions</h2><span class="mono">Sélection</span></div>
+
+      <div class="views">
+        <figure class="view" data-full="https://cdn.contemporaryartlibrary.org/store/image/711488/imagefile/medium-928951dcbb98c3dfe90a2c589489363c.jpg">
+          <div class="img"><img loading="lazy" src="https://cdn.contemporaryartlibrary.org/store/image/711488/imagefile/medium-928951dcbb98c3dfe90a2c589489363c.jpg" alt="C-C-C, And Now, Dallas, 2024" /></div>
+          <figcaption><i>C-C-C</i>, And Now, Dallas, 2024<br>Photo Zeshan Ahmed</figcaption>
+        </figure>
+        <figure class="view" data-full="https://www.moussemagazine.it/wp-content/uploads/2026/02/Installation-view-The-Ambassadors-courtesy-of-Ginny-on-Frederick-and-City-Galerie-Wien.-Photography-by-Stephen-James.17-768x512.jpg">
+          <div class="img"><img loading="lazy" src="https://www.moussemagazine.it/wp-content/uploads/2026/02/Installation-view-The-Ambassadors-courtesy-of-Ginny-on-Frederick-and-City-Galerie-Wien.-Photography-by-Stephen-James.17-768x512.jpg" alt="The Ambassadors, Ginny on Frederick, Londres, 2026" /></div>
+          <figcaption><i>The Ambassadors</i>, Ginny on Frederick, Londres, 2026<br>Photo Stephen James</figcaption>
+        </figure>
+        <figure class="view" data-full="https://artviewer.org/wp-content/uploads/2022/01/Sophie-Giraux-at-Etablissement-den-face_COVER.jpg">
+          <div class="img"><img loading="lazy" src="https://artviewer.org/wp-content/uploads/2022/01/Sophie-Giraux-at-Etablissement-den-face_COVER.jpg" alt="DOLLY, Etablissement d'en face, Bruxelles, 2021" /></div>
+          <figcaption><i>DOLLY</i>, Etablissement d'en face, Bruxelles, 2021<br>Photo Kristien Daem</figcaption>
+        </figure>
+      </div>
+
+      <div class="cols">
+        <div>
+          <h3 class="mono">Expositions personnelles</h3>
+          <div class="row"><span class="y">2025</span><span class="e"><i>C-C-C</i><span>Jenny's, New York · 9 mai – 21 juin</span></span></div>
+          <div class="row"><span class="y">2024</span><span class="e"><i>C-C-C</i><span>And Now, Dallas · 3 avril – 18 mai</span></span></div>
+          <div class="row"><span class="y">2021</span><span class="e"><i>DOLLY</i><span>Etablissement d'en face, Bruxelles · 13 nov. – 23 déc.</span></span></div>
+          <div class="row"><span class="y">2019</span><span class="e"><i>Sophie Giraux</i><span>And Now, Dallas · juillet – août</span></span></div>
+        </div>
+        <div>
+          <h3 class="mono">Expositions collectives</h3>
+          <div class="row"><span class="y">2026</span><span class="e"><i>Rare Aesthetics</i><span>Tara Downs, New York · 6 mars – 18 avril</span></span></div>
+          <div class="row"><span class="y">2026</span><span class="e"><i>The Ambassadors</i>, avec Albert Dietrich<span>Ginny on Frederick, Londres · Condo London, avec City Galerie Wien</span></span></div>
+          <div class="row"><span class="y">2024</span><span class="e"><i>What are we in now??</i><span>The Wig, Berlin · 6 nov. – 21 déc.</span></span></div>
+          <div class="row"><span class="y">2023</span><span class="e"><i>The Big Chill</i><span>Bernheim, Londres · 30 nov. 2023 – 22 janv. 2024</span></span></div>
+          <div class="row"><span class="y">2023</span><span class="e"><i>Repeater</i><span>The Wig, Berlin · 27 mai – 24 juin</span></span></div>
+          <div class="row"><span class="y">2023</span><span class="e"><i>What are we in now?</i><span>The Wig at Makroscope, Mülheim · 5 mai – 25 juin</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEXT: about the work, not about the person -->
+  <section id="texte">
+    <div class="wrap">
+      <div class="sh"><h2>Texte</h2></div>
+      <div class="text">
+        <blockquote class="quote" lang="en">
+          « Mutated and muted, the image still glimmers, if not more. »
+          <cite>Liv Cuniberti, texte de l'exposition <i>C-C-C</i>, Jenny's, 2025</cite>
+        </blockquote>
+        <div class="prose">
+          <p>Le point de départ est une nappe imprimée de fleurs, achetée dans une boutique à un dollar. Le caoutchouc liquide y est coulé, puis, une fois pris, décollé par à-coups : chaque arrêt laisse une ligne sur la surface.</p>
+          <p>Le moule n'est pas fait pour reproduire. La coulée est coupée, déchirée, recomposée, et reportée encore jusqu'à ce que le motif d'origine se perde. Travaillées au sol, les pièces passent ensuite au mur.</p>
+          <p>Il en reste des surfaces argentées ou teintées, entre l'estampe, le relief et l'écran, où la fleur demeure aplatie comme entre les pages d'un livre.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <p>Vit et travaille à New York et à Paris.</p>
+      <p><a href="mailto:studio@sophiegiraux.example">studio@sophiegiraux.example</a><br><a href="#">Instagram</a></p>
+    </div>
+    <p class="credits">Images reproduites avec l'aimable autorisation de Jenny's, And Now, Etablissement d'en face, Ginny on Frederick et City Galerie Wien, Bernheim, Tara Downs et Sotheby's. Photographies : Thomas Müller et Jason Loebs, Zeshan Ahmed, Kristien Daem, Stephen James.</p>
+  </div>
+</footer>
+
+<dialog id="lb">
+  <button type="button" id="lbClose">Fermer</button>
+  <img id="lbImg" alt="" />
+  <p id="lbCap"></p>
+</dialog>
+
+<script>
+  // broken hotlinked image -> neutral placeholder
+  document.querySelectorAll('.img img').forEach(img=>{
+    const fail=()=>img.parentElement.classList.add('missing');
+    if(img.complete && img.naturalWidth===0) fail();
+    img.addEventListener('error',fail);
+  });
+
+  // lightbox
+  const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'), lbCap=document.getElementById('lbCap');
+  function open(fig){
+    const img=fig.querySelector('img'); if(!img || fig.querySelector('.missing')) return;
+    lbImg.src=fig.dataset.full||img.src; lbImg.alt=img.alt;
+    const cap=fig.querySelector('figcaption');
+    lbCap.innerHTML=cap?cap.innerHTML:'';
+    lb.showModal();
+  }
+  document.querySelectorAll('.work,.view').forEach(f=>{
+    f.addEventListener('click',()=>open(f));
+    f.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();open(f);}});
+  });
+  document.getElementById('lbClose').addEventListener('click',()=>lb.close());
+  lb.addEventListener('click',e=>{if(e.target===lb)lb.close();});
+</script>
+</body>
+</html>
