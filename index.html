@@ -118,9 +118,24 @@
     font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
 
   @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+  /* temporaire : accueil = mail + instagram */
+  header, main, footer{display:none}
+  .soon{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:32px;text-align:center}
+  .soon .links{display:flex;flex-direction:column;gap:8px;font-size:14.5px;line-height:1.9}
+  .soon .links a{border-bottom:1px solid var(--hair)}
+  .soon .links a:hover{border-color:var(--ink)}
 </style>
 </head>
 <body>
+
+<div class="soon">
+  <p class="name">Sophie Giraux</p>
+  <p class="links">
+    <a href="mailto:sophiegiraux@gmail.com">sophiegiraux@gmail.com</a>
+    <a href="https://www.instagram.com/_sophiegiraux/">Instagram</a>
+  </p>
+</div>
 
 <header>
   <div class="wrap">
